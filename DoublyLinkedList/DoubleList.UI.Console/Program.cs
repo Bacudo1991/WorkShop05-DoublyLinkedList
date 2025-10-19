@@ -56,7 +56,7 @@ string Menu()
     Console.WriteLine("3. Show list backward");
     Console.WriteLine("4. Sort Descending");
     Console.WriteLine("5. Show if the data exist");
-    Console.WriteLine("6. Shos Fashions");
+    Console.WriteLine("6. Show Fashions");
     Console.WriteLine("0. Exit");
     Console.Write("Select an option: ");
     return Console.ReadLine() ?? "0";

@@ -158,8 +158,4 @@ public class DoublyLinkedList<T>
         }
         return false;
     }
-
-
-
-
 }
