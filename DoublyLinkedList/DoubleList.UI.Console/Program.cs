@@ -31,11 +31,6 @@ do
             Console.WriteLine("List sorted in descending order.");
             break;
         case "5":
-            Console.Write("Enter the data to search: ");
-            var searchData = Console.ReadLine();
-            Console.WriteLine(list.Exist(searchData!) ? $"The data '{searchData}' exists in the list" : $"The data '{searchData}' does not exist in the list");
-            break;
-        case "6":
             Console.WriteLine("Fashions in the list:");
             var fashions = list.GetFashions();
             foreach (var fashion in fashions)
@@ -43,8 +38,12 @@ do
                 Console.WriteLine(fashion);
             }
             break;
+        case "7":
+            Console.Write("Enter the data to search: ");
+            var searchData = Console.ReadLine();
+            Console.WriteLine(list.Exist(searchData!) ? $"The data '{searchData}' exists in the list" : $"The data '{searchData}' does not exist in the list");
+            break;
     }
-
 } while (opt != "0");
 
 string Menu()
@@ -55,8 +54,11 @@ string Menu()
     Console.WriteLine("2. Show list  forward");
     Console.WriteLine("3. Show list backward");
     Console.WriteLine("4. Sort Descending");
-    Console.WriteLine("5. Show if the data exist");
-    Console.WriteLine("6. Show Fashions");
+    Console.WriteLine("5. Show Fashions");
+    Console.WriteLine("6. Fashion graph");
+    Console.WriteLine("7. Show if the data exist");
+    Console.WriteLine("8. Remove an occurrence");
+    Console.WriteLine("9. Remove all occurrences");
     Console.WriteLine("0. Exit");
     Console.Write("Select an option: ");
     return Console.ReadLine() ?? "0";
