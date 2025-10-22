@@ -145,6 +145,45 @@ public class DoublyLinkedList<T>
         return result;
     }
 
+    // Devuelve un "gráfico" en texto: "dato: ***** (n)"
+    public List<string> GetFashionGraph()
+    {
+        var frequencies = new Dictionary<T, int>();
+        var current = _head;
+        while (current != null)
+        {
+            var key = current.Data!;
+            frequencies.TryGetValue(key, out var count);
+            frequencies[key] = count + 1;
+            current = current.Next;
+        }
+
+        var graphLines = new List<string>();
+        if (frequencies.Count == 0)
+            return graphLines;
+
+        // Ordenar por frecuencia descendente, luego por texto del dato
+        var entries = new List<KeyValuePair<T, int>>(frequencies);
+        entries.Sort((a, b) =>
+        {
+            var compare = b.Value.CompareTo(a.Value);
+            if (compare != 0) return compare;
+            var sa = a.Key?.ToString() ?? string.Empty;
+            var sb = b.Key?.ToString() ?? string.Empty;
+            return Comparer<string>.Default.Compare(sa, sb);
+        });
+
+        foreach (var kv in entries)
+        {
+            var keyStr = kv.Key?.ToString() ?? "null";
+            // Si hay muchos repeticiones, los asteriscos crecerán; ajustar si se desea un límite.
+            var stars = new string('*', kv.Value);
+            graphLines.Add($"{keyStr}: {stars}");
+        }
+
+        return graphLines;
+    }
+
     public bool Exist(T data)
     {
         var current = _head;

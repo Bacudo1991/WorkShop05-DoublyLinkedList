@@ -21,9 +21,11 @@ do
             }
             break;
         case "2":
+            Console.WriteLine("List Forward: ");
             Console.WriteLine(list.GetForward());
             break;
         case "3":
+            Console.WriteLine("List Backward: ");
             Console.WriteLine(list.GetBackward());
             break;
         case "4":
@@ -36,6 +38,21 @@ do
             foreach (var fashion in fashions)
             {
                 Console.WriteLine(fashion);
+            }
+            break;
+        case "6":
+            Console.WriteLine("Fashion graph:");
+            var graph = list.GetFashionGraph();
+            if (graph.Count == 0)
+            {
+                Console.WriteLine("(no data)");
+            }
+            else
+            {
+                foreach (var line in graph)
+                {
+                    Console.WriteLine(line);
+                }
             }
             break;
         case "7":
