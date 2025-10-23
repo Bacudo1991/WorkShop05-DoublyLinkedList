@@ -145,7 +145,7 @@ public class DoublyLinkedList<T>
         return result;
     }
 
-    // Devuelve un "gráfico" en texto: "dato: ***** (n)"
+    // Devuelve un "gráfico" en texto: "dato: ***** "
     public List<string> GetFashionGraph()
     {
         var frequencies = new Dictionary<T, int>();
