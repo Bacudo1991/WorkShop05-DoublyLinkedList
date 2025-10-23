@@ -180,7 +180,6 @@ public class DoublyLinkedList<T>
             var stars = new string('*', kv.Value);
             graphLines.Add($"{keyStr}: {stars}");
         }
-
         return graphLines;
     }
 
