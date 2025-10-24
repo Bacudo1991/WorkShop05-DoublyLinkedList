@@ -145,7 +145,6 @@ public class DoublyLinkedList<T>
         return result;
     }
 
-    // Devuelve un "gráfico" en texto: "dato: ***** "
     public List<string> GetFashionGraph()
     {
         var frequencies = new Dictionary<T, int>();
@@ -162,7 +161,7 @@ public class DoublyLinkedList<T>
         if (frequencies.Count == 0)
             return graphLines;
 
-        // Ordenar por frecuencia descendente, luego por texto del dato
+        // sort by frequency descending, then by key ascending
         var entries = new List<KeyValuePair<T, int>>(frequencies);
         entries.Sort((a, b) =>
         {
@@ -175,23 +174,21 @@ public class DoublyLinkedList<T>
 
         foreach (var kv in entries)
         {
-            var keyStr = kv.Key?.ToString() ?? "null";
-            // Si hay muchos repeticiones, los asteriscos crecerán; ajustar si se desea un límite.
+            var keyStr = kv.Key?.ToString() ?? "null";         
             var stars = new string('*', kv.Value);
             graphLines.Add($"{keyStr}: {stars}");
         }
         return graphLines;
     }
 
-    // Elimina la primera ocurrencia del dato. Devuelve true si se eliminó.
+    // Remove the first occurrence of the data. Returns true if removed, false otherwise.
     public bool Remove(T data)
     {
         var current = _head;
         while (current != null)
         {
             if (EqualityComparer<T>.Default.Equals(current.Data, data))
-            {
-                // Unlink current
+            {                
                 if (current.Prev != null)
                     current.Prev.Next = current.Next;
                 else
@@ -201,8 +198,7 @@ public class DoublyLinkedList<T>
                     current.Next.Prev = current.Prev;
                 else
                     _tail = current.Prev;
-
-                // Optional: clear current's links
+                
                 current.Next = null;
                 current.Prev = null;
                 return true;
@@ -212,7 +208,7 @@ public class DoublyLinkedList<T>
         return false;
     }
 
-    // Elimina todas las ocurrencias del dato. Devuelve la cantidad eliminada.
+    // Remove all occurrences of the data. Returns the number of removed nodes.
     public int RemoveAll(T data)
     {
         int removed = 0;
@@ -231,8 +227,7 @@ public class DoublyLinkedList<T>
                     current.Next.Prev = current.Prev;
                 else
                     _tail = current.Prev;
-
-                // clear links
+                
                 current.Next = null;
                 current.Prev = null;
                 removed++;
