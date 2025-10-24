@@ -11,7 +11,6 @@ public class DoublyLinkedList<T>
         _tail = null;
     }
 
-    //Add method sorts the data in ascending order.
     public void Add(T data)
     {
         var newNode = new DoubleNode<T>(data);
@@ -56,7 +55,7 @@ public class DoublyLinkedList<T>
     public string GetForward()
     {
         var output = string.Empty;
-        var current = _head;        
+        var current = _head;
         while (current != null)
         {
             output += $"{current.Data} <=> ";
@@ -68,7 +67,7 @@ public class DoublyLinkedList<T>
     public string GetBackward()
     {
         var output = string.Empty;
-        var current = _tail;        
+        var current = _tail;
         while (current != null)
         {
             output += $"{current.Data} <=> ";
@@ -77,8 +76,6 @@ public class DoublyLinkedList<T>
         return output.Substring(0, output.Length - 5);
     }
 
-
-    //Descending sort 
     public void SortDescending()
     {
         if (_head == null)
@@ -104,7 +101,6 @@ public class DoublyLinkedList<T>
         }
     }
 
-    //GetFashions method returns a list of the most frequently occurring data elements in the list.
     public List<string> GetFashions()
     {
         var frequencies = new Dictionary<T, int>();
@@ -144,12 +140,12 @@ public class DoublyLinkedList<T>
             if (kv.Value == maxFrequency)
             {
                 result.Add(kv.Key?.ToString() ?? "null");
-            }        
+            }
         }
         return result;
     }
 
-    //GetFashionGraph method returns a list of strings representing a graph of data frequencies using asterisks.
+    // Devuelve un "gráfico" en texto: "dato: ***** "
     public List<string> GetFashionGraph()
     {
         var frequencies = new Dictionary<T, int>();
@@ -166,7 +162,7 @@ public class DoublyLinkedList<T>
         if (frequencies.Count == 0)
             return graphLines;
 
-        // Order by frequency descending, then by key ascending.
+        // Ordenar por frecuencia descendente, luego por texto del dato
         var entries = new List<KeyValuePair<T, int>>(frequencies);
         entries.Sort((a, b) =>
         {
@@ -179,11 +175,71 @@ public class DoublyLinkedList<T>
 
         foreach (var kv in entries)
         {
-            var keyStr = kv.Key?.ToString() ?? "null";            
+            var keyStr = kv.Key?.ToString() ?? "null";
+            // Si hay muchos repeticiones, los asteriscos crecerán; ajustar si se desea un límite.
             var stars = new string('*', kv.Value);
             graphLines.Add($"{keyStr}: {stars}");
         }
         return graphLines;
+    }
+
+    // Elimina la primera ocurrencia del dato. Devuelve true si se eliminó.
+    public bool Remove(T data)
+    {
+        var current = _head;
+        while (current != null)
+        {
+            if (EqualityComparer<T>.Default.Equals(current.Data, data))
+            {
+                // Unlink current
+                if (current.Prev != null)
+                    current.Prev.Next = current.Next;
+                else
+                    _head = current.Next;
+
+                if (current.Next != null)
+                    current.Next.Prev = current.Prev;
+                else
+                    _tail = current.Prev;
+
+                // Optional: clear current's links
+                current.Next = null;
+                current.Prev = null;
+                return true;
+            }
+            current = current.Next;
+        }
+        return false;
+    }
+
+    // Elimina todas las ocurrencias del dato. Devuelve la cantidad eliminada.
+    public int RemoveAll(T data)
+    {
+        int removed = 0;
+        var current = _head;
+        while (current != null)
+        {
+            var next = current.Next;
+            if (EqualityComparer<T>.Default.Equals(current.Data, data))
+            {
+                if (current.Prev != null)
+                    current.Prev.Next = current.Next;
+                else
+                    _head = current.Next;
+
+                if (current.Next != null)
+                    current.Next.Prev = current.Prev;
+                else
+                    _tail = current.Prev;
+
+                // clear links
+                current.Next = null;
+                current.Prev = null;
+                removed++;
+            }
+            current = next;
+        }
+        return removed;
     }
 
     public bool Exist(T data)
