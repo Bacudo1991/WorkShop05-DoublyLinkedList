@@ -11,6 +11,7 @@ public class DoublyLinkedList<T>
         _tail = null;
     }
 
+    //Add method sorts the data in ascending order.
     public void Add(T data)
     {
         var newNode = new DoubleNode<T>(data);
@@ -76,6 +77,8 @@ public class DoublyLinkedList<T>
         return output.Substring(0, output.Length - 5);
     }
 
+
+    //Descending sort 
     public void SortDescending()
     {
         if (_head == null)
@@ -101,6 +104,7 @@ public class DoublyLinkedList<T>
         }
     }
 
+    //GetFashions method returns a list of the most frequently occurring data elements in the list.
     public List<string> GetFashions()
     {
         var frequencies = new Dictionary<T, int>();
@@ -145,7 +149,7 @@ public class DoublyLinkedList<T>
         return result;
     }
 
-    // Devuelve un "gráfico" en texto: "dato: ***** "
+    //GetFashionGraph method returns a list of strings representing a graph of data frequencies using asterisks.
     public List<string> GetFashionGraph()
     {
         var frequencies = new Dictionary<T, int>();
@@ -162,7 +166,7 @@ public class DoublyLinkedList<T>
         if (frequencies.Count == 0)
             return graphLines;
 
-        // Ordenar por frecuencia descendente, luego por texto del dato
+        // Order by frequency descending, then by key ascending.
         var entries = new List<KeyValuePair<T, int>>(frequencies);
         entries.Sort((a, b) =>
         {
@@ -175,8 +179,7 @@ public class DoublyLinkedList<T>
 
         foreach (var kv in entries)
         {
-            var keyStr = kv.Key?.ToString() ?? "null";
-            // Si hay muchos repeticiones, los asteriscos crecerán; ajustar si se desea un límite.
+            var keyStr = kv.Key?.ToString() ?? "null";            
             var stars = new string('*', kv.Value);
             graphLines.Add($"{keyStr}: {stars}");
         }

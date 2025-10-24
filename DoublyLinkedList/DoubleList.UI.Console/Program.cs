@@ -60,6 +60,25 @@ do
             var searchData = Console.ReadLine();
             Console.WriteLine(list.Exist(searchData!) ? $"The data '{searchData}' exists in the list" : $"The data '{searchData}' does not exist in the list");
             break;
+        case "8":
+            Console.Write("Enter the data to remove (one occurrence): ");
+            var removeOnce = Console.ReadLine();
+            if (removeOnce != null)
+            {
+                var removed = list.Remove(removeOnce);
+                Console.WriteLine(removed ? $"Removed one occurrence of '{removeOnce}'." : $"Value '{removeOnce}' not found.");
+            }
+            break;
+        case "9":
+            Console.Write("Enter the data to remove (all occurrences): ");
+            var removeAll = Console.ReadLine();
+            if (removeAll != null)
+            {
+                var count = list.RemoveAll(removeAll);
+                Console.WriteLine(count > 0 ? $"Removed {count} occurrence(s) of '{removeAll}'." : $"Value '{removeAll}' not found.");
+            }
+            break;
+
     }
 } while (opt != "0");
 
